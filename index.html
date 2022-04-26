@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+        .item{
+            width: 90px;
+            height: 90px;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            margin-top: 20px;
+            margin-left: 20px;
+            border-radius: 1500px;
+            transition: 0.5s;
+        }
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+            height: 200px;
+            width: 900px;
+        }
+        .active{
+            box-shadow: 0px 0px 14px #00ff00;
+        }
+        .win{
+            margin-top: 200px;
+            display: none;
+            width: 1000px;
+            height: 300px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .btn{
+            background: lime;
+            height: 120px;
+            width: 340px;
+            border-radius: 50px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="win">
+        <div style="display: flex;">
+            <h1>Ты выйграл 400 робуксов, получи их побыстрее. Осталось 4 из 5</h1>
+            <button class="btn">
+                <h1>ВЫЙГРЫШ</h1>
+            </button>
+        </div>
+    </div>
+    <div class="main" style="display: flex;">
+        <div>
+            <h2>Осталось времени: <span class="span">25</span></h2>
+            <h2>Осталось пар: <span class="span1">16</span> пар</h2>
+        </div>
+        <div class="row"></div>
+    </div>
+    <script type="text/javascript">
+        let time = 25
+        let score = 16
+        let main = document.querySelector('.main')
+        let btn = document.querySelector('.btn')
+        let winscreen = document.querySelector('.win')
+        let span = document.querySelector('.span')
+        let span1 = document.querySelector('.span1')
+        let row = document.querySelector(".row")
+        let past_item = null
+        let images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', "1.png", "2.png", "3.png", "4.png", "5.png", "6.png", '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png']
+        for(let i=0; i<32; i=i+1){
+            let elem = document.createElement('div')
+            row.appendChild(elem)
+            elem.classList.add("item")
+            let index = getRandom(images.length - 1)
+            elem.style.backgroundImage = 'url('+images[index] +')'
+            elem.me = images[index]
+            images.splice(index, 1)
+            elem.onclick = function(){
+                elem.classList.add('active')
+                if(past_item == null){
+                    past_item = elem
+                }
+                else if(past_item.me == elem.me){
+                    past_item.style.opacity = '0'
+                    elem.style.opacity = '0'
+                    score = score - 1
+                    span1.innerHTML = score
+                    past_item = null
+                }
+                else if(past_item.me != elem.me){
+                    past_item.classList.remove('active')
+                    elem.classList.remove('active')
+                    past_item = null
+                }
+                if(score == 0){
+                    main.style.display = 'none'
+                    winscreen.style.display = 'block'
+                    clearTimeout(jas)
+                }
+            }
+        }
+        btn.onclick = function(){
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        }
+        function getRandom(number){
+            let rand = Math.random() * number
+            let round = Math.round(rand)
+            return round
+        }
+        function timer(){
+            time = time - 1
+            span.innerHTML = time
+        }
+        function stop(){
+            alert('Ты не успел, попуск')
+            clearInterval(ghas)
+            window.location.href = 'https://www.youtube.com/watch?v=ZEc-k3grvPg'
+        }
+        let ghas = setInterval(timer, 1000)
+        let jas = setTimeout(stop, 25000)
+    </script>
+</body>
+</html>
