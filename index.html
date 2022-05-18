@@ -113,9 +113,8 @@
             span.innerHTML = time
         }
         function stop(){
-            alert('Ты не успел, попуск')
+            alert('Ты не успел :(')
             clearInterval(ghas)
-            window.location.href = 'https://www.youtube.com/watch?v=ZEc-k3grvPg'
         }
         let ghas = setInterval(timer, 1000)
         let jas = setTimeout(stop, 25000)
